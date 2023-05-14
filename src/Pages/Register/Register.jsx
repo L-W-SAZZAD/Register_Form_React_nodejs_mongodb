@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FcBusinessman, FcUnlock, FcGoogle } from "react-icons/fc";
 import { MdEmail } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible, AiFillGithub } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../UserContext/UserContext";
 
 export default function Register() {
+  // context
+  const { googleSignIn, faceBookLogIN, githubLogIn } = useContext(AuthContext);
+  // context
   // state show hide eye icon
   const [showPassword, setShowPassword] = useState(false);
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);
@@ -37,14 +40,45 @@ export default function Register() {
     setInputValue((prv) => ({ ...prv, [e.target.name]: e.target.value }));
   };
   // input control
+
+  // handelGoogle
+  const handelGoogle = () => {
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        toast.success(" Success");
+      })
+      .catch((error) => toast.error(error.message));
+  };
+  // handelGoogle
+  // handelFacebook
+  const handelFacebook = () => {
+    faceBookLogIN()
+      .then((result) => {
+        const user = result.user;
+        toast.success(" Success");
+      })
+      .catch((error) => toast.error(error.message));
+  };
+  // handelFacebook
+  // handelFacebook
+  const handelGithub = () => {
+    githubLogIn()
+      .then((result) => {
+        const user = result.user;
+        toast.success(" Success");
+      })
+      .catch((error) => toast.error(error.message));
+  };
+  // handelFacebook
   return (
     <div className="bg z-10">
       <div className="lg:w-[1240px] lg:mx-auto md:w-full sm:w-full w-full lg:px-0 md:px-2 sm:px-3 px-3">
         <form
           onSubmit={handelSubmit}
-          className="register h-screen flex justify-center items-center"
+          className="register  py-10 flex justify-center items-center "
         >
-          <div className="box bg-[#ebe9e9] p-10 rounded-md ">
+          <div className="box bg-[#ebe9e9] p-10 rounded-md cursor-pointer">
             <h1 className=" text-4xl text-center font-semibold tracking-wide uppercase text-[#4e87b6] pb-5">
               Sign Up
             </h1>
@@ -150,9 +184,12 @@ export default function Register() {
               </p>
               {/* social Icons */}
               <div className="flex justify-center gap-10 mt-5 cursor-pointer">
-                <FcGoogle className="text-2xl" />
-                <FaFacebook className="text-2xl text-[#2f55ec]" />
-                <AiFillGithub className="text-2xl" />
+                <FcGoogle onClick={handelGoogle} className="text-2xl" />
+                <FaFacebook
+                  onClick={handelFacebook}
+                  className="text-2xl text-[#2f55ec]"
+                />
+                <AiFillGithub onClick={handelGithub} className="text-2xl" />
               </div>
               {/* social Icons */}
               {/* already have an account */}
