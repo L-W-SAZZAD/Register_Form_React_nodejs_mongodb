@@ -1,4 +1,5 @@
 import RootLayOut from "../Layout/RootLayOut";
+import Products from "../Pages/Products/Products";
 
 const {
   createBrowserRouter,
@@ -15,6 +16,7 @@ export const router = createBrowserRouter(
         <Route path="/" element={<Register />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/product" element={<Products />} />
       </Route>
     </Route>
   )
